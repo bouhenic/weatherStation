@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chart Example</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="style.css">
+   
+</head>
+<body>
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">WEATHER STATION INEU</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li><a href="http://138.197.188.172:3000/index.html">REAL TIME</a></li>
+        <li class="active" class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">CHARTS
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="http://138.197.188.172:3000/temperature.html">TEMPERATURE</a></li>
+            <li><a href="http://138.197.188.172:3000/Humidite.html">HUMIDITY</a></li>
+            <li><a href="http://138.197.188.172:3000/pressure.html">PRESSURE</a></li>
+            <li class="active"><a href="http://138.197.188.172:3000/rain.html">PRECIPITATION</a></li>
+            <li><a href="http://138.197.188.172:3000/vent.html">WIND CLICHY</a></li>
+            <li><a href="#">WIND CHIOGGIA</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">MOBILITIES
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="http://138.197.188.172:3000/italy.html">ITALY</a></li>
+            <li><a href="#">FRANCE</a></li>
+          </ul>
+        </li>
+        <li><a href="#">ERASMUS</a></li>
+      </ul>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="heading">
+      <div class="row">
+        <div class="col-md-12"><br><br></div>
+        <div class="col-md-12">  
+        <h1>PRECIPITATION</h1>
+        </div>
+    <canvas id="myTankGauge"></canvas>
+      </div>
+      <div class="col-md-12">
+        <br>
+        <h2>PRECIPITATION: <span id="quantity"></span> mm</h2>
+        <br>
+      </div>
+      <div class="col-md-12"> 
+    <form id="contact-form">
+      <div class="row">
+        <div class="col-md-6">
+        <label>CHOOSE THE TIME PRESET OF THE CHART :</label>
+        <select class="form-control">
+                    <option value="today">Today</option>
+                    <option value="yesterday">Since yesterday</option>
+                    <option value="week">For 1 week</option>
+                    <option value="month">For 1 month</option>
+        </select>
+      </div>
+      <div class="col-md-6">
+        <button id="buttonSend" class="button1">SUBMIT</button>
+      </div>
+      </div>
+    </form>
+    <div class="col-md-12">
+      <br>
+      <br>
+    </div>
+       </div>
+
+    <script>
+        
+
+      window.addEventListener("load", post); //Lancement de la fonction post au chargement
+      const butsend=document.querySelector("button");
+      butsend.addEventListener("click",post); //Lancement de la fonction sur appui sur le bouton
+      let choice = '72'; // Par defaut, on choisit 24h00
+      let today = new Date(); // On relève la date complète
+      let dd = today.getDate(); // On récupére la date  du jour
+      let water = document.getElementById('quantity');
+      // Création d'un évènement sur changement de valeur sur un select, lancement d'une fonction switch
+      let select = document.getElementsByTagName('select')[0];
+      select.addEventListener('change', function () {
+        indexchoice = this.selectedIndex;
+        switch (indexchoice) {
+          case 0:
+            choice='72';
+            break;
+          case 1:
+            choice='216';
+            break;
+          case 2:
+            choice='504';
+            break;
+          case 3:
+            choice='2160';
+            break;
+          default:
+            console.log("error choice");
+        }
+      })
+   
+   //fonction requête http sur API (choice détermine le nombre de mesures retournées)
+      function post(e){
+        e.preventDefault();
+        const Url ='http://138.197.188.172:3000/api/wsclichy/'+choice;
+  fetch(Url)
+  .then(data=>{return data.json()})
+  .then(res=>{
+    
+let date = [];
+let rain = [];
+let time = [];
+//let days = [];
+let day;
+
+var yesterday = new Date(); // On définit une variable au format date
+yesterday.setDate(yesterday.getDate() - 1); // On définit la date d'hier
+let dayyesterday=yesterday.getUTCDate(); // On  relève le jour d'hier
+
+
+for(let i=0;i<res.result.length;i++){
+    time.push(res.result[i].TIME); //On crée un tableau avec les dates
+    let date = new Date(time[i]); //On crée une variable date en y affectant chaque valeur du tableau time
+  day = date.getUTCDate(); //On relève le jour
+  //days.push(day); //On crée un tableau days
+  if(choice=='72'){
+    if(day==dd){rain.push(res.result[i].RAIN);} //On crée un tableau avec les valeurs du jour
+  }
+  if(choice=='216')
+  {
+    if(day==dd || day==dayyesterday){rain.push(res.result[i].RAIN);} //On crée un tableau avec les valeurs de pluie du jour et h'hier
+  }
+  if(choice=='504')
+  {
+    rain.push(res.result[i].RAIN);//On crée un tableau avec les 504 valeurs de pluie
+  }
+  if(choice=='2160')
+  {
+    rain.push(res.result[i].RAIN);//On crée un tableau avec les 2160 valeurs
+  }
+}
+//console.log(days);
+//console.log(rain);
+//Calcul du total des précipitations 
+let totalrain = Math.round((rain[0] - rain[rain.length-1])*10)/10;
+if(totalrain<0){totalrain=rain[0];}
+console.log(totalrain);
+console.log
+water.innerHTML=totalrain;
+
+var ctx = document.getElementById('myTankGauge').getContext('2d');
+
+var config = {
+    type: 'bar',
+    data: {
+        labels: ['Tank'],
+        datasets: [{
+            label: 'Water level',
+            backgroundColor: '#8DACF1',
+            data: [totalrain],
+            borderWidth: 0,
+            yAxisID: 'y-axis-1'
+        }, {
+            label: 'Empty space',
+            backgroundColor: '#e0e0e0',
+            data: [100 - totalrain],
+            borderWidth: 0,
+            yAxisID: 'y-axis-1'
+        }]
+    },
+    options: {
+        responsive: true,
+        tooltips: {
+            enabled: false
+        },
+        legend: {
+            display: false
+        },
+        scales: {
+            xAxes: [{
+                stacked: true,
+                gridLines: {
+                    display: false
+                },
+                ticks: {
+                    display: false
+                },
+                  categoryPercentage: 0.25  // Pour réduire la largeur de la jauge   
+            }],
+            yAxes: [{
+                id: 'y-axis-1',
+                stacked: true,
+                gridLines: {
+                    display: false
+                },
+                ticks: {
+                    display: true,  // Pour afficher les valeurs maximales
+                    beginAtZero: true,
+                    max: 100
+                }
+            }]
+        }
+    }
+};
+
+var chart = new Chart(ctx, config);
+
+}) 
+      }
+
+     
+    </script>
+    </div>
+  </div>
+</body>
+</html>
+

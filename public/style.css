@@ -1,0 +1,313 @@
+
+body{
+    font-family: "Lato", sans-serif;
+    margin: 70px, 0px;
+    background:#ecedf1;
+  }
+  
+  h1{
+    font-weight: bold;
+    color:rgb(65, 60, 60);
+    text-decoration: underline;
+  }
+  
+  .heading{
+    text-align: center;
+    margin-bottom: 60px;
+  }
+  
+  #contact-form
+  {
+      font-size: 20px;
+      background: #fff;
+      padding: 40px;
+      border-radius: 10px;
+  }
+  
+  #contact-form input[type=submit]
+  {
+      margin: 40px auto 0px;
+      display: block;
+  }
+  
+  legend{
+    font-size:15px;
+    color:#2a09e6
+  }
+  
+  table{
+    border-collapse: collapse;
+    margin:auto;
+    background: #fff;
+  }
+  
+  .table-responsive{
+    background:#FFF;
+    padding: 10px;
+    border-radius: 10px;
+  }
+  
+  td{
+    border: 1px solid black;
+    padding: 10px;
+    text-align :center;
+  }
+  
+  th{
+    border: 1px solid black;
+    padding: 10px;
+    font-weight:bold;
+    background-color: #D0E3FA;
+    text-align :center;
+  }
+  
+  
+  .lignecoloree {background-color:#CC0033;color:white;font-weight:bold;}
+  .lignenormale {background-color:#FFFFFF;}
+
+
+.button1
+{
+    border: 1px solid #ddd;
+    background: #ffa500;
+    color: #fff;
+    width: 80%;        
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 18px;
+    border-radius: 5px;
+    transition: all 0.3s ease-in 0s;
+}
+.button1:hover
+{
+    background: #333;
+    border-color: #ffa500;
+}
+
+#nbr
+{
+  color:#fff;
+  text-align: center;
+  font-size: 20px;
+}
+
+#vide
+{
+  color:#fff;
+  text-align: center;
+  font-size: 20px;
+}
+
+/* The alert message box */
+#alert {
+  padding: 20px;
+  background-color: #f44336; /* Red */
+  color: white;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  text-align: center;
+  border-radius: 5px;
+  display:none;
+}
+
+/* The close button */
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* When moving the mouse over the close button */
+.closebtn:hover {
+  color: black;
+}
+
+.cont-btns
+{
+  display:flex;
+  justify-content:center;
+  width:100%;
+}
+
+.emplacement
+{
+  background-color:black;
+}
+
+.emplacement .noborder
+{
+  background-color:#4d4e53;
+  border:none;
+  color:white;
+}
+
+svg .numbergrid
+{
+  fill:#fff;
+}
+
+#bilan
+{
+  color:white;
+}
+
+#boutEmplacement
+{
+  border: 1px solid #ddd;
+  background: #2f2f2d;
+  color: #fff;
+  width: 100%;        
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 18px;
+  border-radius: 5px;
+  transition: all 0.3s ease-in 0s;
+}
+
+#boutEmplacement2
+{
+  border: 1px solid #ddd;
+  background: #2f2f2d;
+  color: #fff;
+  width: 100%;        
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 18px;
+  border-radius: 5px;
+  transition: all 0.3s ease-in 0s;
+}
+
+#boutEmplacement:hover
+{
+    background: #333;
+    border-color: #2f2f2d;
+}
+
+#boutEmplacement2:hover
+{
+    background: #333;
+    border-color: #2f2f2d;
+}
+
+input[type=text] {
+  width: 50%;
+  border: 2px solid black;
+  border-radius: 4px;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  color: #000;
+}
+
+input[type=date] {
+  width: 50%;
+  border: 2px solid black;
+  border-radius: 4px;
+  padding: 0px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  color: #000;
+}
+
+.styleTitle{
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.styleBouteille{
+  text-decoration: underline;
+}
+
+select {
+  width: 50%;
+  border: 2px solid black;
+  border-radius: 4px;
+  padding: 12px 20px;
+  margin: 8px O;
+  box-sizing: border-box;
+  color: #000;
+}
+
+#clichy {
+  background-color: #D2DBD8;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+#clichymesure {
+ padding: 10px; 
+}
+
+
+#clichypicture {
+padding: 10px;
+background-image: url('newton.jpg');
+}
+
+
+
+#chioggia {
+  background-color: #D2DBD8;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+#fondclichy {
+background-color: blue;
+}
+
+p span {
+font-weight: bold;
+font-size:30px;
+color:blue;
+}
+
+p {
+  font-size: 30px;
+  text-decoration: underline;
+}
+
+img {
+    width: 100%; 
+  }
+
+  .picture2 {
+    width: 75%;  
+  }
+
+  .picture6 {
+    width: 90%; 
+  }
+
+  .picture7 {
+    width: 95%; 
+  }
+
+ #textimage2 {
+  width: 75%;
+  font-size: 18px;
+  text-decoration: none;
+ }
+
+ #textimage1 {
+  width: 100%;
+  font-size: 18px;
+  text-decoration: none;
+ }
+  
+ .textimage6 {
+  width: 90%;
+  font-size: 18px;
+  text-decoration: none;
+ }
+
+ #textimage7 {
+  width: 95%;
+  font-size: 18px;
+  text-decoration: none;
+ }

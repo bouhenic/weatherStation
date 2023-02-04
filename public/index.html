@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>WEATHER STATION ENEU</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <script src="/socket.io/socket.io.js"></script>
+    <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">WEATHER STATION INEU</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li class="active" ><a href="http://138.197.188.172:3000">REAL-TIME</a></li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">CHARTS
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="http://138.197.188.172:3000/temperature.html">TEMPERATURE</a></li>
+            <li><a href="http://138.197.188.172:3000/Humidite.html">HUMIDITY</a></li>
+            <li><a href="http://138.197.188.172:3000/pressure.html">PRESSURE</a></li>
+            <li><a href="http://138.197.188.172:3000/rain.html">PRECIPITATION</a></li>
+            <li><a href="http://138.197.188.172:3000/vent.html">WIND CLICHY</a></li>
+            <li><a href="#">WIND CHIOGGIA</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">MOBILITIES
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="http://138.197.188.172:3000/italy.html">ITALY</a></li>
+            <li><a href="#">FRANCE</a></li>
+          </ul>
+        </li>
+        <li><a href="#">ERASMUS</a></li>
+      </ul>
+    </div>
+  </nav>
+    <div class="container">
+    <div class="heading">
+     <br><br>
+    <h1>WEATHER STATION INEU</h1>
+    </div>
+    <div class="row">
+    <div id="clichy" class="col-md-5">
+    <h1 id="title" >CLICHY LYCEE ISAAC NEWTON</h1>
+    <p>Humidity: <span id="hum"></span>%</p>
+    <p>Temperature: <span id="temp_reel"></span>°C</p>
+    <p>Pressure: <span id="pressure"></span>hPa</p>
+    <p>Precipitation: <span id="rainFall"></span>mm today</p>
+    <p>Wind speed: <span id="windSpeed"></span>km/h</p>
+    <p>Wind direction: <span id="calDirection"></span></p>
+    </div>
+    <div class="col-md-2"></div>
+    <div id="chioggia" class="col-md-5">
+    <h1 id="titleCh" >CHIOGGIA FONDAZIONE CAVANIS</h1>
+    <p>Humidity: <span id="humCh">XX</span>%</p>
+    <p>Temperature: <span id="temp_reelCh">XX</span>°C</p>
+    <p>Pressure: <span id="pressureCh">XX</span>hPa</p>
+    <p>Precipitation: <span id="rainFallCh">XX</span>mm today</p>
+    <p>Wind speed:: <span id="windSpeedCh">XX</span>km/h</p>
+    <p>Wind direction: <span id="calDirectionCh">XX</span></p>
+    </div>
+    </div>
+    </div>
+    <script>
+    var div = document.getElementById("clichy");
+var width = window.getComputedStyle(div).width;
+var height = window.getComputedStyle(div).height;
+console.log("Largeur de la div : " + width);
+console.log("Hauteur de la div : " + height);
+    </script>
+ 
+    <script src="index.js" type="text/javascript"></script>
+  </body>
+</html>
+

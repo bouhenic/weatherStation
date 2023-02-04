@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chart Example</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="style.css">   
+</head>
+<body>
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">WEATHER STATION INEU</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li><a href="http://138.197.188.172:3000/index.html">REAL-TIME</a></li>
+        <li class="active" class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">CHARTS
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="http://138.197.188.172:3000/temperature.html">TEMPERATURE</a></li>
+            <li><a href="http://138.197.188.172:3000/Humidite.html">HUMIDITY</a></li>
+            <li><a href="http://138.197.188.172:3000/pressure.html">PRESSURE</a></li>
+            <li><a href="http://138.197.188.172:3000/rain.html">PRECIPITATION</a></li>
+            <li class="active"><a href="http://138.197.188.172:3000/vent.html">WIND CLICHY</a></li>
+            <li><a href="#">WIND CHIOGGIA</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">MOBILITIES
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="http://138.197.188.172:3000/italy.html">ITALY</a></li>
+            <li><a href="#">FRANCE</a></li>
+          </ul>
+        </li>
+        <li><a href="#">ERASMUS</a></li>
+      </ul>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="heading">
+      <div class="row">
+        <div class="col-md-12"><br><br></div>
+        <div class="col-md-12">  
+        <h1>WIND CLICHY</h1>
+    </div>
+    <canvas id="windRose"></canvas>
+      </div>
+      <div class="col-md-12">
+        <br>
+        <br>
+      </div>
+      <div class="col-md-12"> 
+    <form id="contact-form">
+      <div class="row">
+        <div class="col-md-6">
+        <label>CHOOSE THE TIME SCOPE OF THE CHART :</label>
+        <select class="form-control">
+                    <option value="72">24 heures</option>
+                    <option value="216">3 jours</option>
+        </select>
+      </div>
+      <div class="col-md-6">
+        <button id="buttonSend" class="button1">SUBMIT</button>
+      </div>
+      </div>
+    </form>
+    <div class="col-md-12">
+      <br>
+      <br>
+    </div>
+       </div>
+
+    <script>
+      window.addEventListener("load", post);
+      const butsend=document.querySelector("button");
+      butsend.addEventListener("click",post);
+      let choice = '72';
+
+      let select = document.getElementsByTagName('select')[0];
+      select.addEventListener('change', function () {
+        indexchoice = this.selectedIndex;
+        switch (indexchoice) {
+          case 0:
+            choice='72';
+            break;
+          case 1:
+            choice='216';
+            break;
+          default:
+            console.log("error choice");
+        }
+        console.log(choice);
+      })
+   
+    
+      function post(e){
+        e.preventDefault();
+        const Url ='http://138.197.188.172:3000/api/wsclichy/'+choice;
+  fetch(Url)
+  .then(data=>{return data.json()})
+  .then(res=>{
+console.log(res.result);
+let windspeedeast = [];
+let windspeedsouth = [];
+let windspeedsoutheast = [];
+let  windspeedsouthwest = [];
+let windspeedwest = [];
+let windspeednorth = [];
+let windspeednortheast = [];
+let  windspeednorthwest = [];
+let winddir = [];
+
+
+for(let i=0;i<res.result.length;i++){
+    if(res.result[i].WIN_DIRECTION=='E'){
+        windspeedeast.push(res.result[i].WIND_SPEED);
+    }
+    if(res.result[i].WIN_DIRECTION=='S'){
+        windspeedsouth.push(res.result[i].WIND_SPEED);
+    }
+
+    if(res.result[i].WIN_DIRECTION=='SE'){
+        windspeedsoutheast.push(res.result[i].WIND_SPEED);
+    }
+
+    if(res.result[i].WIN_DIRECTION=='SO'){
+        windspeedsouthwest.push(res.result[i].WIND_SPEED);
+    }
+
+    if(res.result[i].WIN_DIRECTION=='0'){
+        windspeedwest.push(res.result[i].WIND_SPEED);
+    }
+    if(res.result[i].WIN_DIRECTION=='N'){
+        windspeednorth.push(res.result[i].WIND_SPEED);
+    }
+
+    if(res.result[i].WIN_DIRECTION=='NE'){
+        windspeednortheast.push(res.result[i].WIND_SPEED);
+    }
+
+    if(res.result[i].WIN_DIRECTION=='NO'){
+        windspeednorthwest.push(res.result[i].WIND_SPEED);
+    }
+    
+}
+let valeast = Math.max.apply(null, windspeedeast);
+let valsouth = Math.max.apply(null, windspeedsouth);
+let valsoutheast = Math.max.apply(null, windspeedsoutheast);
+let valsouthwest = Math.max.apply(null, windspeedsouthwest);
+let valwest = Math.max.apply(null, windspeedwest);
+let valnorth = Math.max.apply(null, windspeednorth);
+let valnortheast = Math.max.apply(null, windspeednortheast);
+let valnorthwest = Math.max.apply(null, windspeednorthwest);
+winddir  = [valnorth,valnortheast,valeast,valsoutheast,valsouth,valsouthwest,valwest,valnorthwest]
+winddir.forEach((value, index, array) => {
+    if (value == Infinity || value == -Infinity) {
+      array[index] = 0;
+    }
+  });
+console.log(valeast);
+console.log(winddir);
+
+var ctx = document.getElementById('windRose').getContext('2d');
+    var chart = new Chart(ctx, {
+        type: 'polarArea',
+        data: {
+            labels: ["N", "NE", "E", "SE", "S", "SW", "W", "NW"],
+            datasets: [{
+                label: 'Wind Speed (mph)',
+                data: winddir,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                ],
+                borderWidth: 1
+              }]
+              },
+              options: {
+                rotation: -Math.PI / 2,
+
+              legend: {
+              position: 'bottom',
+              align: 'center'
+              },
+              scale: {
+              ticks: {
+              beginAtZero: true,
+              min: 0,
+              max: 120,
+              stepSize: 10,
+              }
+              }
+              }
+              });
+
+
+
+}) 
+      }
+
+     
+    </script>
+    </div>
+  </div>
+</body>
+</html>
+
