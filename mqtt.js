@@ -60,9 +60,8 @@ res.sendFile(__dirname + '/public/index.html');
 });
 
 app.get('/api/wsclichy/:id', function (req, res) {
-var id = connection.escape(req.params.id);
-var query = `SELECT * FROM WSCLICHY ORDER BY ID DESC LIMIT ${id}`;
-
+var id = req.params.id;
+let query = 'SELECT * FROM WSCLICHY ORDER BY ID DESC LIMIT '+ id;
   connection.query(query, function (error, results) {
   if(error)
   console.log(message.error)
