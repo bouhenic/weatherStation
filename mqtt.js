@@ -1,5 +1,5 @@
 const mqtt = require('mqtt');
-
+const path = require('path');
 const express = require('express');
 const app = express();
 const http = require('http');
@@ -13,8 +13,6 @@ const connection = mysql.createConnection({
   password: 'SWKSrRfSwT71',
   database: 'WSINEU'
 });
-
-
 
 const server = http.createServer(app);
 const { Server } = require("socket.io");
@@ -40,7 +38,7 @@ let date = '';
 
 app.use(morgan('dev'))
 
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(function(request, response, next) {
     response.header("Access-Control-Allow-Origin", "*");
@@ -62,7 +60,10 @@ res.sendFile(__dirname + '/public/index.html');
 });
 
 app.get('/api/wsclichy/:id', function (req, res) {
-  connection.query('SELECT * FROM WSCLICHY ORDER BY ID DESC LIMIT '+ req.params.id, function (error, results) {
+var id = connection.escape(req.params.id);
+var query = `SELECT * FROM WSCLICHY ORDER BY ID DESC LIMIT ${id}`;
+
+  connection.query(query, function (error, results) {
   if(error)
   console.log(message.error)
   else res.json(success(results))})
@@ -127,6 +128,7 @@ if(count>=2200) {connection.query('DELETE FROM WSCLICHY WHERE id <'+(LastId-2200
   console.log(message.error)});
 }
 });
+
 
 io.emit('message-from-server-to-client', hum,temp_reel,pressure,rainFall,windSpeed,calDirection);
 }
