@@ -1,0 +1,14 @@
+{
+  "name": "weather-station",
+  "version": "1.0.0",
+  "description": "Weather station API",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "mqtt": "^4.2.6",
+    "@influxdata/influxdb-client": "^1.16.0"
+  }
+}
